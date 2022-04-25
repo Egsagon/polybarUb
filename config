@@ -1,0 +1,132 @@
+; === POLYBAR CONFIG === ;
+
+[colors]
+#bg = #77282b36
+bg = #282b36
+fg = #e8e6e3
+ac = #FFAA55ED
+alert = #bd2c40
+
+[bar/bar1]
+enable-ipc = true
+monitor = DP-1
+height = 20
+radius = 0
+fixed-center = false
+background = #00000000
+foreground = ${colors.fg}
+line-size = 0
+border-size = 5
+font-0 = "System San Fransisco Display:pixelsize=10;1"
+font-1 = "Iosevka Nerd Font:pixelsize=20;3"             # corners
+font-2 = "System San Fransisco Display:pixelsize=10;2"
+
+modules-center = roundLeft dots roundRight roundLeft date roundRight
+
+wm-restack = i3
+override-redirect = true
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/bar2]
+enable-ipc = true
+monitor = DP-2
+height = 20
+radius = 0
+fixed-center = false
+background = #00000000
+foreground = ${colors.fg}
+line-size = 0
+border-size = 5
+
+font-0 = "System San Fransisco Display:pixelsize=10;1"
+font-1 = "Iosevka Nerd Font:pixelsize=20;3"             # corners
+font-2 = "System San Fransisco Display:pixelsize=20;1"
+font-3 = "Iosevka Nerd Font:pixelsize=10;3"
+
+# Note : idk why but removing the '# corners' comment make it not working.
+
+modules-center = roundLeft dots roundRight roundLeft discord co roundRight
+
+wm-restack = i3
+override-redirect = true
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/dots]
+type = internal/i3
+index-sort = true
+pin-workspaces = true
+format = <label-state> <label-mode>
+label-mode = %{T-1}%mode%%{T-}
+label-mode-background = ${colors.bg}
+
+label-focused = %{T0}●%{T-}
+label-focused-foreground = ${colors.ac}
+label-focused-background = ${colors.bg}
+label-focused-padding = 1
+
+label-unfocused = %{T0}○%{T-}
+label-unfocused-foreground = ${colors.ac}
+label-unfocused-background = ${colors.bg}
+label-unfocused-padding = 1
+
+label-urgent = %{T0}○%{T-}
+label-urgent-foreground = ${colors.ac}
+label-urgent-background = ${colors.bg}
+label-urgent-padding = 1
+
+label-visible = %{T0}○%{T-}
+label-visible-foreground = ${colors.ac}
+label-visible-background = ${colors.bg}
+label-visible-padding = 1
+
+line-size = 0
+label-font = 0
+
+[module/date]
+type = internal/date
+interval = 5
+date =
+date-alt = %{T3}%d / %m%{T-}
+time = %{T3}%H : %M%{T-}
+time-alt = 
+line-size = 0
+label-font = 5
+format-background = ${colors.bg}
+format-prefix = 
+label = %date%%time%
+label-padding = 3
+
+[module/discord]
+type = custom/script
+exec = echo %{T4}ﭮ%{T-}
+interval = 1
+tail = true
+click-left = python3 /home/egsagon/.config/polybar/discord.py
+label-background = ${colors.bg}
+label-padding = 2
+
+[module/co]
+type = custom/script
+exec = echo %{T4}%{T-}
+interval = 1
+tail = true
+click-left = nm-connection-editor
+line-size = 0
+label-background = ${colors.bg}
+label-padding = 2
+
+[module/roundLeft]
+type = custom/text
+content = %{T2}◖%{O-3}%{T-}
+content-foreground = ${colors.bg}
+
+[module/roundRight]
+type = custom/text
+content = %{T2}%{O-3}◗ %{T-}
+content-foreground = ${colors.bg}
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
